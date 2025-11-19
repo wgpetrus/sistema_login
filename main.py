@@ -41,6 +41,11 @@ def validar_email(email: str) -> bool:
     return re.match(pattern, email) is not None
 
 
+def format_nome(s: str) -> str:
+    """Formata um nome: cada palavra com inicial maiúscula e restante minúsculo."""
+    return ' '.join(part.capitalize() for part in s.strip().split())
+
+
 def senha_valida(senha: str) -> List[str]:
     erros: List[str] = []
     if len(senha) < 8:
@@ -78,6 +83,10 @@ def criar_conta() -> None:
         primeiro_nome = input('Digite somente o primeiro nome: ').strip()
 
     sobrenome = input('Sobrenome: ').strip()
+
+    # Normaliza capitalização do nome e sobrenome
+    primeiro_nome = format_nome(primeiro_nome)
+    sobrenome = format_nome(sobrenome)
     nome_completo = f"{primeiro_nome} {sobrenome}".strip()
 
     email = input('Email: ').strip()
